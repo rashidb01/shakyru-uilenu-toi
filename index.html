@@ -1,45 +1,3 @@
-  /* ---------- WhatsApp ---------- */
-  var PHONE = "77007626282";
-  var sendEl = document.getElementById("send");
-  var nameEl = document.getElementById("fname");
-  var wishEl = document.getElementById("wish");
-  var errEl  = document.getElementById("err");
-
-  function message(){
-    var lines = ["Даурен мен Улпанның тойы — жауап"];
-    lines.push("Аты-жөні: " + (nameEl.value.trim() || "—"));
-    if(document.getElementById("yes").checked){
-      lines.push("Келемін: ИӘ");
-      lines.push("Адам саны: " + count);
-    } else {
-      lines.push("Келемін: ЖОҚ, өкінішке орай");
-    }
-    var wish = wishEl.value.trim();
-    if(wish) lines.push("Тілек: " + wish);
-    lines.push("19.09.2026 · Қордай · «Тамаша», Жібек Жолы 286");
-    return lines.join("\n");
-  }
-  function syncLink(){
-    sendEl.href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(message());
-  }
-  ["input","change"].forEach(function(ev){
-    document.querySelector(".form").addEventListener(ev, syncLink);
-  });
-  document.getElementById("minus").addEventListener("click", syncLink);
-  document.getElementById("plus").addEventListener("click", syncLink);
-  syncLink();
-
-  sendEl.addEventListener("click", function(e){
-    if(nameEl.value.trim().length < 2){
-      e.preventDefault();
-      errEl.textContent = "Аты-жөніңізді жазыңыз — иелері сізді танысын.";
-      nameEl.focus();
-      return;
-    }
-    errEl.textContent = "";
-    syncLink();
-    document.getElementById("ok").classList.add("on");
-  });
 <!DOCTYPE html>
 <html lang="kk">
 <head>
@@ -857,34 +815,45 @@ footer .heart{margin-top:26px;font-size:12px;color:rgba(255,255,255,.4)}
 
   /* ---------- WhatsApp ---------- */
   var PHONE = "77007626282";
-  document.getElementById("send").addEventListener("click", function(){
-    var nameEl = document.getElementById("fname");
-    var name = nameEl.value.trim();
-    var err = document.getElementById("err");
-    if(name.length < 2){
-      err.textContent = "Аты-жөніңізді жазыңыз — иелері сізді танысын.";
-      nameEl.focus();
-      return;
-    }
-    err.textContent = "";
+  var sendEl = document.getElementById("send");
+  var nameEl = document.getElementById("fname");
+  var wishEl = document.getElementById("wish");
+  var errEl  = document.getElementById("err");
 
-    var going = document.getElementById("yes").checked;
-    var wish = document.getElementById("wish").value.trim();
-    var lines = [];
-    lines.push("Даурен мен Улпанның тойы — жауап");
-    lines.push("Аты-жөні: " + name);
-    if(going){
+  function message(){
+    var lines = ["Даурен мен Улпанның тойы — жауап"];
+    lines.push("Аты-жөні: " + (nameEl.value.trim() || "—"));
+    if(document.getElementById("yes").checked){
       lines.push("Келемін: ИӘ");
       lines.push("Адам саны: " + count);
     } else {
       lines.push("Келемін: ЖОҚ, өкінішке орай");
     }
+    var wish = wishEl.value.trim();
     if(wish) lines.push("Тілек: " + wish);
     lines.push("19.09.2026 · Қордай · «Тамаша», Жібек Жолы 286");
+    return lines.join("\n");
+  }
+  function syncLink(){
+    sendEl.href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(message());
+  }
+  ["input","change"].forEach(function(ev){
+    document.querySelector(".form").addEventListener(ev, syncLink);
+  });
+  document.getElementById("minus").addEventListener("click", syncLink);
+  document.getElementById("plus").addEventListener("click", syncLink);
+  syncLink();
 
+  sendEl.addEventListener("click", function(e){
+    if(nameEl.value.trim().length < 2){
+      e.preventDefault();
+      errEl.textContent = "Аты-жөніңізді жазыңыз — иелері сізді танысын.";
+      nameEl.focus();
+      return;
+    }
+    errEl.textContent = "";
+    syncLink();
     document.getElementById("ok").classList.add("on");
-    window.open("https://wa.me/" + PHONE + "?text=" + encodeURIComponent(lines.join("\n")),
-                "_blank", "noopener");
   });
 })();
 </script>
